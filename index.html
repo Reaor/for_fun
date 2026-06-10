@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>字宙 ZIVERSE · 汉字观测终端</title>
+<meta name="description" content="一台来自平行宇宙的汉字终端：粒子铸字、字源回溯、拆字炼金、诗境雨幕。复古未来主义的汉字交互实验。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ════════ 开机引导层 ════════ -->
+<div id="boot" class="boot">
+  <div class="boot-inner">
+    <pre id="bootLog" class="boot-log"></pre>
+    <div id="bootPrompt" class="boot-prompt hidden">▚ 按任意键 · 接入字宙 ▞</div>
+  </div>
+</div>
+
+<!-- ════════ CRT 效果层 ════════ -->
+<div class="crt-scanlines" aria-hidden="true"></div>
+<div class="crt-vignette" aria-hidden="true"></div>
+<canvas id="bgGlyphs" class="bg-glyphs" aria-hidden="true"></canvas>
+
+<!-- ════════ 顶部终端栏 ════════ -->
+<header class="termbar">
+  <div class="termbar-left">
+    <span class="led"></span>
+    <span class="termbar-title">字宙://ZIVERSE</span>
+  </div>
+  <nav class="termbar-nav">
+    <a href="#foundry" data-nav>01·铸字</a>
+    <a href="#origin" data-nav>02·回溯</a>
+    <a href="#alchemy" data-nav>03·炼金</a>
+    <a href="#rain" data-nav>04·雨幕</a>
+  </nav>
+  <div class="termbar-right">
+    <button id="soundToggle" class="termbtn" title="音效开关">♪ 静音</button>
+    <span id="clock" class="clock">--:--:--</span>
+  </div>
+</header>
+
+<main>
+
+<!-- ════════ 主视觉 ════════ -->
+<section class="hero" id="top">
+  <p class="hero-pre">SYSTEM ONLINE · 平行历 1984 / 公元 2077 · 信号源：殷墟</p>
+  <h1 id="heroLogo" class="hero-logo" title="连点五次会发生什么？">
+    <span class="glitch" data-text="字宙">字宙</span>
+  </h1>
+  <p class="hero-sub">Z I V E R S E · 汉 字 观 测 终 端</p>
+  <p class="hero-desc">
+    三千年前，有人把太阳刻进龟甲；三千年后，太阳仍在这个字里燃烧。<br>
+    本终端捕获了汉字的电子幽灵 —— 它们仍然活着，并且可以被触摸。
+  </p>
+  <div class="hero-rails" aria-hidden="true">
+    <span class="rail rail-l">观乎天文以察时变</span>
+    <span class="rail rail-r">观乎人文以化成天下</span>
+  </div>
+  <a class="hero-enter" href="#foundry">▼ 进入实验舱 ▼</a>
+  <div class="grid-horizon" aria-hidden="true"></div>
+</section>
+
+<!-- ════════ 模块 01 · 粒子铸字 ════════ -->
+<section class="module" id="foundry">
+  <header class="module-head">
+    <span class="module-no">实验舱 01</span>
+    <h2>粒子铸字 <em>GLYPH FOUNDRY</em></h2>
+    <p>把任意汉字熔成三千枚光的粒子。用指针搅动它 —— 字会散开，但永远记得自己的形状。</p>
+  </header>
+  <div class="foundry-stage">
+    <canvas id="foundryCanvas"></canvas>
+    <div class="foundry-hud">
+      <span id="foundryCount">PARTICLES: 0</span>
+      <span>MOUSE = 引力扰动</span>
+    </div>
+  </div>
+  <div class="foundry-ctrl">
+    <div class="ctrl-row">
+      <input id="foundryInput" class="terminput" type="text" maxlength="2" value="龘" placeholder="输入汉字">
+      <button id="foundryCast" class="neonbtn">⟁ 铸字</button>
+      <button id="foundryScatter" class="neonbtn ghost">✦ 引爆</button>
+    </div>
+    <div class="ctrl-row presets">
+      <span class="ctrl-label">样本：</span>
+      <button class="chip" data-cast="龘">龘</button>
+      <button class="chip" data-cast="飞">飞</button>
+      <button class="chip" data-cast="梦">梦</button>
+      <button class="chip" data-cast="灵">灵</button>
+      <button class="chip" data-cast="舞">舞</button>
+      <button class="chip" data-cast="道">道</button>
+      <button class="chip" data-cast="永">永</button>
+    </div>
+    <div class="ctrl-row">
+      <span class="ctrl-label">光谱：</span>
+      <button class="chip mode active" data-mode="neon">霓虹</button>
+      <button class="chip mode" data-mode="phosphor">磷光</button>
+      <button class="chip mode" data-mode="amber">琥珀</button>
+      <button class="chip mode" data-mode="ember">余烬</button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 模块 02 · 字源回溯 ════════ -->
+<section class="module" id="origin">
+  <header class="module-head">
+    <span class="module-no">实验舱 02</span>
+    <h2>字源回溯 <em>TIME MACHINE</em></h2>
+    <p>拖动时间轴，看一个字穿越三千年 —— 从龟甲上的刻痕，到屏幕上的光。字形为示意重构。</p>
+  </header>
+  <div class="origin-wrap">
+    <div class="origin-stage">
+      <div class="origin-display">
+        <svg id="originOracle" class="origin-layer" viewBox="0 0 100 100" aria-hidden="true"></svg>
+        <svg id="originSeal" class="origin-layer" viewBox="0 0 100 100" aria-hidden="true"></svg>
+        <div id="originModern" class="origin-layer origin-modern">日</div>
+        <div class="origin-scanline" aria-hidden="true"></div>
+      </div>
+      <div class="origin-meta">
+        <div class="origin-era">
+          <span id="originYear" class="origin-year">公元前 1300 年</span>
+          <span id="originStage" class="origin-stagename">甲骨文</span>
+        </div>
+        <input id="originSlider" class="timeline" type="range" min="0" max="100" value="0">
+        <div class="timeline-marks"><span>甲骨文</span><span>篆意</span><span>今体</span></div>
+      </div>
+    </div>
+    <aside class="origin-side">
+      <div class="origin-picker" id="originPicker"></div>
+      <p id="originDesc" class="origin-desc"></p>
+    </aside>
+  </div>
+</section>
+
+<!-- ════════ 模块 03 · 拆字炼金所 ════════ -->
+<section class="module" id="alchemy">
+  <header class="module-head">
+    <span class="module-no">实验舱 03</span>
+    <h2>拆字炼金所 <em>GLYPH ALCHEMY</em></h2>
+    <p>汉字是唯一可以做加法的文字。挑选两枚字符投入熔炉 —— 日加月会发光，木加木会成林。共 16 道隐藏配方。</p>
+  </header>
+  <div class="alchemy-wrap">
+    <div class="alchemy-bench">
+      <div class="fuse-row">
+        <div id="slotA" class="fuse-slot" data-slot="A"><span class="slot-hint">字符·甲</span></div>
+        <span class="fuse-op">＋</span>
+        <div id="slotB" class="fuse-slot" data-slot="B"><span class="slot-hint">字符·乙</span></div>
+        <span class="fuse-op">＝</span>
+        <div id="fuseResult" class="fuse-result"><span class="slot-hint">？</span></div>
+      </div>
+      <button id="fuseBtn" class="neonbtn big">⚡ 熔 合</button>
+      <p id="fuseMsg" class="fuse-msg">等待投料……熔炉温度 1084℃</p>
+    </div>
+    <div class="alchemy-elements">
+      <div class="elements-head">
+        <span>字符库</span>
+        <span id="alchemyProgress" class="alchemy-progress">已发现 0 / 16</span>
+      </div>
+      <div id="elementGrid" class="element-grid"></div>
+      <div id="discoveryLog" class="discovery-log"><span class="log-empty">—— 合成记录将显示于此 ——</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ 模块 04 · 诗境雨幕 ════════ -->
+<section class="module" id="rain">
+  <header class="module-head">
+    <span class="module-no">实验舱 04</span>
+    <h2>诗境雨幕 <em>POEM RAIN</em></h2>
+    <p>数据雨里混进了一句古诗。在字符坠落、消失之前点中它们，把诗一个字一个字打捞回来。</p>
+  </header>
+  <div class="rain-stage">
+    <canvas id="rainCanvas"></canvas>
+    <div class="rain-overlay">
+      <div id="verseSlots" class="verse-slots"></div>
+      <p id="verseAuthor" class="verse-author"></p>
+    </div>
+    <div id="rainBloom" class="rain-bloom hidden">
+      <div class="bloom-verse" id="bloomVerse"></div>
+      <div class="bloom-author" id="bloomAuthor"></div>
+      <button id="nextVerse" class="neonbtn">↻ 下一场雨</button>
+    </div>
+  </div>
+  <div class="rain-ctrl">
+    <span class="ctrl-label">雨速：</span>
+    <button class="chip speed" data-speed="0.6">慢雨</button>
+    <button class="chip speed active" data-speed="1">常雨</button>
+    <button class="chip speed" data-speed="1.7">骤雨</button>
+    <span id="rainScore" class="rain-score">捞起 0 字</span>
+  </div>
+</section>
+
+</main>
+
+<!-- ════════ 关机页脚 ════════ -->
+<footer class="footer">
+  <pre class="footer-ascii">
+┌──────────────────────────────────┐
+│  字宙 ZIVERSE · HALT 0x5B57       │
+│  仓颉造字 鬼夜哭 · 终端待机        │
+└──────────────────────────────────┘</pre>
+  <p>每一个汉字都是一台时间机器 · 本终端由硅基观测员构筑于平行历 1984</p>
+  <a class="footer-top" href="#top">▲ 重启信号</a>
+</footer>
+
+<script src="js/audio.js"></script>
+<script src="js/main.js"></script>
+<script src="js/foundry.js"></script>
+<script src="js/origin.js"></script>
+<script src="js/alchemy.js"></script>
+<script src="js/rain.js"></script>
+</body>
+</html>
